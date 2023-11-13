@@ -49,7 +49,7 @@ Either the `EXTERNALIOIMPLICITACCESS` [system-level privilege]({% link {{ page.v
 - Using the [`cockroach nodelocal upload`]({% link {{ page.version.version }}/cockroach-nodelocal-upload.md %}) command.
 - Using [HTTP]({% link {{ page.version.version }}/use-a-local-file-server.md %}) or HTTPS.
 
-No special privilege is required for: 
+No special privilege is required for:
 
 - Interacting with an Amazon S3 and Google Cloud Storage resource using `SPECIFIED` credentials. Azure Storage is always `SPECIFIED` by default.
 - Using [Userfile]({% link {{ page.version.version }}/use-userfile-storage.md %}) storage.
@@ -108,7 +108,7 @@ Successful `EXPORT` returns a table of (perhaps multiple) files to which the dat
 
 ## Parquet types
 
-CockroachDB types map to [Parquet types](https://github.com/apache/parquet-format/blob/master/LogicalTypes.md) as per the following:
+CockroachDB types map to [Parquet types](https://github.com/apache/parquet-format/blob/master/LogicalTypes.md) listed in the following table. All columns witten to Parquet files will be nullable, therefore the Parquet repetition level is `optional`.
 
 | CockroachDB Type    | Parquet Type | Parquet Logical Type |
 --------------------|--------------|----------------------
