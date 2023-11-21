@@ -77,6 +77,36 @@ Field | Description | Emitted for option(s)
 `index_end_key` | The end key of the last [range]({% link {{ page.version.version }}/architecture/overview.md %}#architecture-range) of [index]({% link {{ page.version.version }}/indexes.md %}) data. | `INDEXES`
 `raw_index_start_key` | The start key of the first [range]({% link {{ page.version.version }}/architecture/overview.md %}#architecture-range) of [index]({% link {{ page.version.version }}/indexes.md %}) data, expressed as [`BYTES`]({% link {{ page.version.version }}/bytes.md %}). | `INDEXES`, `KEYS`
 `raw_index_end_key` | The end key of the last [range]({% link {{ page.version.version }}/architecture/overview.md %}#architecture-range) of [index]({% link {{ page.version.version }}/indexes.md %}) data, expressed as [`BYTES`]({% link {{ page.version.version }}/bytes.md %}). | `INDEXES`, `KEYS`
+`span_stats` | A `JSON` object containing span statistics. For more details, see [Span Statistics](#span-statistics). | `DETAILS`
+
+### Span Statistics
+
+CockroachDB stores all user data in a sorted map of key-value pairs, also known as a keyspace. A span refers to an interval within this keyspace.
+
+{% include_cached new-in.html version="v23.2" %} The `SHOW RANGES` command emits span statistics when the `DETAILS` option is specified. The statistics are included in a column named `span_stats`, as a `JSON` object.
+
+The statistics are calculated for the identifier of each row. For example,
+
+- `SHOW RANGES WITH DETAILS` will compute span statistics for each [range]({% link {{ page.version.version }}/ui-replication-dashboard.md %}#review-of-cockroachdb-terminology).
+- `SHOW RANGES WITH TABLES, DETAILS` will compute span statistics for each table, and so on.
+ 
+The `span_stats` `JSON` object has the following keys:
+
+- `approximate_disk_bytes`
+- `[key|val|sys|live|intent]_count`
+- `[key|val|sys|live|intent]_bytes`
+
+`approximate_disk_bytes` is an approximation of the total on-disk size of the given object.
+
+`key_count` is the number of [meta keys]({% link {{ page.version.version }}/architecture/distribution-layer.md %}#meta-ranges) tracked under `key_bytes`. `key_bytes` is the number of bytes stored in all non-system point keys, including live, meta, old, and deleted keys. Only meta keys really account for the "full" key; value keys only for the timestamp suffix.
+
+`val_count` is the number of [meta values]({% link {{ page.version.version }}/architecture/distribution-layer.md %}#meta-ranges) tracked under `val_bytes`. `val_bytes` is the number of bytes in all non-system version values, including meta values.
+
+`sys_count` is the number of [meta keys]({% link {{ page.version.version }}/architecture/distribution-layer.md %}#meta-ranges) tracked under `sys_bytes`. `sys_bytes` is the number of bytes stored in system-local key-value pairs. This tracks the same quantity as (`key_bytes` + `val_bytes`), but for system-local metadata keys (which are not counted in either `key_bytes` or `val_bytes`).
+
+`live_count` is the number of [meta keys]({% link {{ page.version.version }}/architecture/distribution-layer.md %}#meta-ranges) tracked under `live_bytes`. `live_bytes` is the number of bytes stored in keys and values which can in principle be read in the far future, including intents but not deletion tombstones (or their [intents]({% link {{ page.version.version }}/architecture/transaction-layer.md %}#write-intents)). Note that the size of the meta key-value pair (which could be explicit or implicit) is included in this. Only the meta key-value pair counts for the actual length of the encoded key (regular pairs only count the timestamp suffix).
+
+`intent_count` is the number of keys tracked under `intent_bytes`. It is equal to the number of meta keys in the system with a non-empty [Transaction proto]({% link {{ page.version.version }}/architecture/distribution-layer.md %}#grpc). `intent_bytes` is the number of bytes in [intent]({% link {{ page.version.version }}/architecture/transaction-layer.md %}#write-intents) key-value pairs (without their meta keys).
 
 ## Examples
 
