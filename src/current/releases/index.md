@@ -116,6 +116,8 @@ The following binaries are not suitable for production environments:
             <td>{{ r.release_date }}</td> {% comment %} Release date of the release. {% endcomment %}
                 {% if r.withdrawn == true %} {% comment %} Suppress withdrawn releases. {% endcomment %}
             <td><span class="badge badge-gray">Withdrawn</span></td>
+                {% elsif r.cloud_only == true %} {% comment %} Suppress download links for Cloud-first releases {% endcomment %}
+            <td><span>Available for select CockroachDB Dedicated customers only</span></td>
                 {% else %} {% comment %} Add download links for all non-withdrawn versions. {% endcomment %}
             <td>
                 <div><a href="https://binaries.cockroachdb.com/cockroach-{{ r.release_name }}.linux-amd64.tgz">Full Binary</a>{% if r.has_sha256sum == true %} (<a href="https://binaries.cockroachdb.com/cockroach-{{ r.release_name }}.linux-amd64.tgz.sha256sum">SHA256</a>){% endif %}</div> {% comment %} If a sha256sum is available for a particular release, we display a link to the file containing the sha256sum alongside the download link of the release. {% endcomment %}
@@ -126,6 +128,8 @@ The following binaries are not suitable for production environments:
                 {% if r.linux.linux_arm == true %}
                     {% if r.withdrawn == true %} {% comment %} Suppress withdrawn releases. {% endcomment %}{% comment %}Version and date columns joined with previous row{% endcomment %}
                 <td><span class="badge badge-gray">Withdrawn</span></td>
+                    {% elsif r.cloud_only == true %} {% comment %} Suppress download links for Cloud-first releases {% endcomment %}
+                <td><span>Available for select CockroachDB Dedicated customers only</span></td>
                     {% else %} {% comment %} Add download links for all non-withdrawn versions. {% endcomment %}
                 <td>
                         {% if r.linux.linux_arm_experimental == true %}<b>Experimental:</b>{% endif %}
@@ -169,6 +173,8 @@ The following binaries are not suitable for production environments:
             <td>{{ r.release_date }}</td> {% comment %} Release date of the release. {% endcomment %}
             {% if r.withdrawn == true %} {% comment %} Suppress withdrawn releases. {% endcomment %}
             <td><span class="badge badge-gray">Withdrawn</span></td>
+            {% elsif r.cloud_only == true %} {% comment %} Suppress download links for Cloud-first releases {% endcomment %}
+            <td><span>Available for select CockroachDB Dedicated customers only</span></td>
             {% else %} {% comment %} Add download links for all non-withdrawn versions. {% endcomment %}
             <td>
                 <div><a href="https://binaries.cockroachdb.com/cockroach-{{ r.release_name }}.darwin-10.9-amd64.tgz">Full Binary</a>{% if r.has_sha256sum == true %} (<a href="https://binaries.cockroachdb.com/cockroach-{{ r.release_name }}.darwin-10.9-amd64.tgz.sha256sum">SHA256</a>){% endif %}</div> {% comment %} If a sha256sum is available for a particular release, we display a link to the file containing the sha256sum alongside the download link of the release. {% endcomment %}
@@ -179,6 +185,8 @@ The following binaries are not suitable for production environments:
             {% if r.mac.mac_arm == true %}
                 {% if r.withdrawn == true %} {% comment %} Suppress withdrawn releases. {% endcomment %}{% comment %}Version and date columns joined with previous row{% endcomment %}
             <td><span class="badge badge-gray">Withdrawn</span></td>
+                {% elsif r.cloud_only == true %} {% comment %} Suppress download links for Cloud-first releases {% endcomment %}
+            <td><span>Available for select CockroachDB Dedicated customers only</span></td>
                 {% else %} {% comment %} Add download links for all non-withdrawn versions. {% endcomment %}
             <td>
                     {% if r.mac.mac_arm_limited_access == true %}<b>Limited Access:</b>{% elsif r.mac.mac_arm_experimental == true %}<b>Experimental:</b>{% endif %}
@@ -219,6 +227,8 @@ The following binaries are not suitable for production environments:
             <td>{{ r.release_date }}</td> {% comment %} Release date of the release. {% endcomment %}
                 {% if r.withdrawn == true %} {% comment %} Suppress withdrawn releases. {% endcomment %}
             <td><span class="badge badge-gray">Withdrawn</span></td>
+                {% elsif r.cloud_only == true %} {% comment %} Suppress download links for Cloud-first releases {% endcomment %}
+            <td><span>Available for select CockroachDB Dedicated customers only</span></td>
                 {% else %} {% comment %} Add download links for all non-withdrawn versions. {% endcomment %}
             <td>
                     {% if r.windows == true %}
@@ -267,6 +277,8 @@ The following binaries are not suitable for production environments:
             <td>
             {% if r.withdrawn == true %} {% comment %} Suppress withdrawn releases. {% endcomment %}
                 <span class="badge badge-gray">Withdrawn</span>
+            {% elsif r.cloud_only == true %} {% comment %} Suppress download links for Cloud-first releases {% endcomment %}
+                <span>Available for select CockroachDB Dedicated customers only</span>
             {% else %}
                 {% if r.source == true %}
                 <b>{% if r.docker.docker_arm == false %}Intel{% else %}Multi-platform{% endif %}</b>:<br><code>{{ r.docker.docker_image }}:{{ r.release_name }}</code>
@@ -312,6 +324,8 @@ The following binaries are not suitable for production environments:
             <td>{{ r.release_date }}</td> {% comment %} Release date of the release. {% endcomment %}
             {% if r.withdrawn == true %} {% comment %} Suppress withdrawn releases. {% endcomment %}
             <td><span class="badge badge-gray">Withdrawn</span></td>
+            {% elsif r.cloud_only == true %} {% comment %} Suppress download links for Cloud-first releases {% endcomment %}
+            <td><span>Available for select CockroachDB Dedicated customers only</span></td>
             {% else %} {% comment %} Add download links for all non-withdrawn versions. {% endcomment %}
             <td>
                 {% if r.source == true %}

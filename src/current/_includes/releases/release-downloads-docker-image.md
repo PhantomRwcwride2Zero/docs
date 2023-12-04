@@ -11,6 +11,14 @@
 This patch release has been withdrawn{% if include.advisory_key %} due to [this technical advisory](https://www.cockroachlabs.com/docs/advisories/{{ include.advisory_key }}){% endif %}. We've removed the links to the downloads and Docker image.All the changes listed as part of this release will be in the next release. Do not upgrade to this release.
 {{site.data.alerts.end}}
 
+{% elsif release.cloud_only == true %}{% comment %} Suppress download links for Cloud-first releases {% endcomment %}
+
+{{ site.data.alerts.callout_info }}
+This version is currently available only on select CockroachDB {{ site.data.products.dedicated }} and {{ site.data.products.serverless }} clusters. If you wish to upgrade your cluster to this version, please submit a [support request](https://support.cockroachlabs.com/hc/en-us/requests/new).
+
+This release is currently not available for CockroachDB {{ site.data.products.core }} customers.
+{{ site.data.alerts.end }}
+
 {% else %}
 
 <h4>Full CockroachDB executable</h4>
