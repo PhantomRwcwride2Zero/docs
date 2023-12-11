@@ -107,7 +107,7 @@ Access to DB Console is a function of cluster security and the privileges of the
 
 On insecure clusters, all areas of the DB Console are accessible to all users.
 
-On secure clusters, for each user who should have access to the DB Console, you must [create a user with a password]({% link {{ page.version.version }}/create-user.md %}#create-a-user-with-a-password) and optionally [`GRANT`]({% link {{ page.version.version }}/grant.md %}##grant-system-level-privileges-on-the-entire-cluster) the user [system-level privileges]({% link {{ page.version.version }}/security-reference/authorization.md %}#supported-privileges) or membership to the [`admin` role]({% link {{ page.version.version }}/security-reference/authorization.md %}#admin-role).
+On secure clusters, for each user who should have access to the DB Console, you must [create a user with a password]({% link {{ page.version.version }}/create-user.md %}#create-a-user-with-a-password) and optionally [`GRANT`]({% link {{ page.version.version }}/grant.md %}#grant-system-level-privileges-on-the-entire-cluster) the user [system-level privileges]({% link {{ page.version.version }}/security-reference/authorization.md %}#supported-privileges) or membership to the [`admin` role]({% link {{ page.version.version }}/security-reference/authorization.md %}#admin-role).
 
 ### Privilege-based security
 
